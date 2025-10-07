@@ -11,7 +11,7 @@ import {
 } from 'react-native-paper';
 
 // Use test IDs during development
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6459631134961728/4144720253';
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'YOUR_ADMOB_ADID';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   requestNonPersonalizedAdsOnly: true,
