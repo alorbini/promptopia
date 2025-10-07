@@ -44,7 +44,7 @@ This project uses a **monorepo** structure:
 
 ```
 promptopia/
-├── backend/    ← Laravel 11 API & Filament
+├── backend/    ← Laravel 12 API & Filament
 └── frontend/   ← Expo React Native App
 ```
 
