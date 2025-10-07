@@ -1,0 +1,32 @@
+# =================================================================
+# General
+# =================================================================
+.DS_Store
+.idea/
+*.local
+
+# =================================================================
+# Laravel / Backend
+# =================================================================
+backend/vendor/
+backend/node_modules/
+backend/public/storage
+backend/storage/*.key
+backend/storage/framework/
+backend/.env
+backend/.env.backup
+backend/.phpunit.result.cache
+backend/Homestead.json
+backend/Homestead.yaml
+backend/npm-debug.log
+backend/yarn-error.log
+
+# =================================================================
+# Expo / Frontend
+# =================================================================
+frontend/node_modules/
+frontend/.expo/
+frontend/npm-debug.log
+frontend/yarn-error.log
+frontend/web-build/
+frontend/.env
