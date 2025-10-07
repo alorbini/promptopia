@@ -149,7 +149,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 
-Developed by **Hasan**  
+Developed by **Hasan Alorbini**  
 🚀 Full-Stack Developer | Laravel ⚡ React Native
 
 ---
