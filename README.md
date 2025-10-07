@@ -1,7 +1,7 @@
 # 📚 Promptopia
 
 Promptopia is a bilingual (Arabic/English) mobile application designed to provide users with a curated collection of creative and technical prompts.  
-It features a modern mobile UI, a powerful Filament admin panel, and a clean Laravel 11 API backend, all structured in a monorepo.
+It features a modern mobile UI, a powerful Filament admin panel, and a clean Laravel 12 API backend, all structured in a monorepo.
 
 ## 🖼️ Screenshots
 (You can add screenshots of your app here.)
