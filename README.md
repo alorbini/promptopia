@@ -43,7 +43,7 @@ It features a modern mobile UI, a powerful Filament admin panel, and a clean Lar
 This project uses a **monorepo** structure:
 
 ```
-prompt-library/
+promptopia/
 ├── backend/    ← Laravel 11 API & Filament
 └── frontend/   ← Expo React Native App
 ```
