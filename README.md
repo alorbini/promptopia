@@ -33,7 +33,7 @@ It features a modern mobile UI, a powerful Filament admin panel, and a clean Lar
 
 | Area          | Technology                                                            |
 |---------------|-----------------------------------------------------------------------|
-| **Backend**   | PHP 8.2+, Laravel 11, MySQL 8, Filament v3                             |
+| **Backend**   | PHP 8.3+, Laravel 12, MySQL 8, Filament v3                             |
 | **Frontend**  | Expo React Native, TypeScript, Zustand, React Native Paper, Expo Router v3 |
 
 ---
@@ -56,7 +56,7 @@ promptopia/
 
 Make sure you have the following installed:
 
-- PHP 8.2+
+- PHP 8.3+
 - Composer
 - Node.js (LTS) + npm
 - MySQL
