@@ -59,16 +59,14 @@ class PromptController extends Controller
 
             // --- LANGUAGE & FALLBACK LOGIC ---
             $query->with(['translations' => function ($query) use ($lang) {
-                $query->where('lang', $lang);
+                $query->whereIn('lang', [$lang, 'en'])
+                    ->orderByRaw('lang = ? DESC', [$lang]);
             }])
             ->whereHas('translations', function ($q) use ($lang) {
-                $q->where('lang', $lang);
+                 $q->where('lang', $lang)
+                    ->orWhere('lang', 'en');
             });
             
-            // This part is a bit tricky. We can't easily do a pure SQL fallback.
-            // A simpler approach for this app is to just return prompts that HAVE the requested translation.
-            // A more complex solution might involve subqueries or unions. For our needs, this is sufficient.
-
             return $query->latest()->paginate($perPage);
         });
 
@@ -94,7 +92,7 @@ class PromptController extends Controller
             }
 
             // Load requested translation, if not found, load english as fallback
-            $translation = $prompt->translations()->where('lang', 'lang')->first()
+             $translation = $prompt->translations()->where('lang', $lang)->first()
                 ?? $prompt->translations()->where('lang', 'en')->first();
 
             if (! $translation) {
