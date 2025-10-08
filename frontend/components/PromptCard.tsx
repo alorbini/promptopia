@@ -1,53 +1,53 @@
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Image, ImageBackground, StyleSheet, View } from 'react-native';
-import { Card, Chip, Text } from 'react-native-paper';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Prompt } from '../lib/api';
+import { useTranslate } from '../lib/i18n';
 
 type PromptCardProps = {
   prompt: Prompt;
   onPress: () => void;
 };
 
+// This is the new, robust PromptCard, built from the ground up with core components.
+// It does not use any 'react-native-paper' components to avoid production crashes.
 export default function PromptCard({ prompt, onPress }: PromptCardProps) {
+  const t = useTranslate();
   const imageUrl = prompt.cover_image_url || 'https://placehold.co/700x400/2f2f2f/555555?text=No+Image';
-
+  const translation = prompt.translation;
+  const title = translation?.title?.trim() || t('missingPromptTitle');
+  const subtitle = translation?.subtitle?.trim() || t('missingPromptSubtitle');
   return (
-    <Card style={styles.card} onPress={onPress}>
-      {/* THE FIX: Replaced Card.Cover with a custom layered Image component */}
+    <TouchableOpacity style={styles.card} onPress={onPress}>
+      {/* Image Container */}
       <View style={styles.imageContainer}>
-        {/* Layer 1: The blurred background image that covers the area */}
-        <ImageBackground
+        <Image
           source={{ uri: imageUrl }}
-          style={styles.imageBackground}
-          resizeMode="cover"
-          blurRadius={15}
-        >
-          {/* Layer 2: The sharp, fully visible image on top */}
-          <Image
-            source={{ uri: imageUrl }}
-            style={styles.image}
-            resizeMode="contain"
-          />
-        </ImageBackground>
+          style={styles.image}
+          resizeMode="contain"
+        />
       </View>
 
-      <Card.Content style={styles.content}>
-        <Text variant="titleMedium" style={styles.title} numberOfLines={1}>
-          {prompt.translation.title}
+      {/* Content Container */}
+      <View style={styles.content}>
+        <Text style={styles.title} numberOfLines={1}>
+          {title}
         </Text>
-        <Text variant="bodyMedium" style={styles.subtitle} numberOfLines={2}>
-          {prompt.translation.subtitle || 'No subtitle provided.'}
+        <Text style={styles.subtitle} numberOfLines={2}>
+          {subtitle}
         </Text>
         <View style={styles.chipContainer}>
-          <Chip icon="brain" mode="outlined" style={styles.chip}>
-            {prompt.model}
-          </Chip>
-          <Chip icon="creation" mode="outlined" style={styles.chip}>
-            {prompt.difficulty}
-          </Chip>
+          <View style={styles.chip}>
+            <Ionicons name="hardware-chip-outline" size={14} color="#ccc" />
+            <Text style={styles.chipText}>{prompt.model}</Text>
+          </View>
+          <View style={styles.chip}>
+            <Ionicons name="analytics-outline" size={14} color="#ccc" />
+            <Text style={styles.chipText}>{prompt.difficulty}</Text>
+          </View>
         </View>
-      </Card.Content>
-    </Card>
+      </View>
+    </TouchableOpacity>
   );
 }
 
@@ -56,30 +56,33 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
     backgroundColor: '#1e1e1e',
-    overflow: 'hidden', // Important for the image container's border radius
+    borderRadius: 16,
+    overflow: 'hidden',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
-  // NEW STYLES for the professional image display
   imageContainer: {
-    height: 180, // Give the image container a fixed height
+    height: 180,
     backgroundColor: '#000',
-  },
-  imageBackground: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
   },
   content: {
-    paddingTop: 12,
+    padding: 12,
   },
   title: {
+    fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 4,
+    color: '#fff',
   },
   subtitle: {
+    fontSize: 14,
     color: '#ccc',
     minHeight: 40,
   },
@@ -89,7 +92,16 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   chip: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 16,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    gap: 6,
+  },
+  chipText: {
+    color: '#ccc',
+    fontSize: 12,
   },
 });
-
