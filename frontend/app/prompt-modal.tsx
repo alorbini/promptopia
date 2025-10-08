@@ -1,7 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import * as Clipboard from 'expo-clipboard';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import * as Sharing from 'expo-sharing';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -45,15 +43,18 @@ export default function PromptModal() {
   }, [id, lang]);
 
   const handleCopy = () => {
-    if (prompt?.translation.prompt_text) {
-      Clipboard.setStringAsync(prompt.translation.prompt_text);
-      alert(t('copiedToClipboard'));
+    const promptText = prompt?.translation?.prompt_text?.trim();
+    if (!promptText) {
+      alert(t('missingPromptText'));
+      return;
     }
   };
 
   const handleShare = async () => {
-    if (prompt?.translation.prompt_text) {
-      await Sharing.shareAsync(prompt.translation.prompt_text);
+    const promptText = prompt?.translation?.prompt_text?.trim();
+    if (!promptText) {
+      alert(t('missingPromptText'));
+      return;
     }
   };
 
@@ -65,6 +66,10 @@ export default function PromptModal() {
   }
 
   const imageUrl = prompt.cover_image_url || 'https://placehold.co/700x400/2f2f2f/555555?text=No+Image';
+  const translation = prompt.translation;
+  const promptTitle = translation?.title?.trim() || t('missingPromptTitle');
+  const promptSubtitle = translation?.subtitle?.trim() || t('missingPromptSubtitle');
+  const promptText = translation?.prompt_text?.trim() || t('missingPromptText');
 
   return (
     // THE FIX: SafeAreaView now applies insets to all sides by default
@@ -93,10 +98,10 @@ export default function PromptModal() {
         </View>
 
         <View style={styles.contentContainer}>
-          <Text style={styles.title}>{prompt.translation.title}</Text>
-          <Text style={styles.subtitle}>{prompt.translation.subtitle}</Text>
+          <Text style={styles.title}>{promptTitle}</Text>
+          <Text style={styles.subtitle}>{promptSubtitle}</Text>
           <View style={styles.promptBox}>
-            <Text style={styles.promptText}>{prompt.translation.prompt_text}</Text>
+            <Text style={styles.promptText}>{promptText}</Text>
           </View>
         </View>
       </ScrollView>

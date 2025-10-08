@@ -11,7 +11,7 @@ import {
 } from 'react-native-paper';
 
 // Use test IDs during development
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'YOUR_ADMOB_ADID';
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6459631134961728/4144720253';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   requestNonPersonalizedAdsOnly: true,
@@ -47,7 +47,7 @@ export default function RootLayout() {
   const theme = CombinedDarkTheme;
 
   // --- AdMob Timer Logic ---
-  const adInterval = useRef<NodeJS.Timeout | null>(null);
+  const adInterval = useRef<number | null>(null);
 
   useEffect(() => {
     const adListener = interstitial.addAdEventListener(AdEventType.LOADED, () => {

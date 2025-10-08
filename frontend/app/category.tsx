@@ -10,6 +10,7 @@ import {
 import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+// THE FIX: Import the final, reliable PromptCard
 import PromptCard from '../components/PromptCard';
 import { PaginatedResponse, Prompt, fetchPrompts } from '../lib/api';
 import { useTranslate } from '../lib/i18n';
@@ -21,7 +22,7 @@ export default function CategoryScreen() {
   const t = useTranslate();
   const theme = useTheme();
   const navigation = useNavigation();
-  const router = useRouter(); // THE FIX: Get the router for navigation
+  const router = useRouter();
 
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [page, setPage] = useState(1);
@@ -42,6 +43,7 @@ export default function CategoryScreen() {
     const targetPage = isInitial ? 1 : page;
     if (isInitial) {
       setLoading(true);
+      setError(null);
     } else {
       setLoadingMore(true);
     }
@@ -74,7 +76,6 @@ export default function CategoryScreen() {
     loadPrompts(true);
   }, [lang, id]);
 
-  // THE FIX: Implemented the navigation logic here
   const handlePromptPress = (promptId: string) => {
     router.push({
       pathname: '/prompt-modal',
@@ -92,7 +93,7 @@ export default function CategoryScreen() {
   if (error) {
     return (
       <View style={[styles.centered, { backgroundColor: theme.colors.background }]}>
-        <Text>{error}</Text>
+        <Text style={{ color: '#fff' }}>{error}</Text>
       </View>
     );
   }
@@ -102,8 +103,8 @@ export default function CategoryScreen() {
       <FlatList
         data={prompts}
         keyExtractor={(item) => item.id}
+        // THE FIX: Use the real, reliable PromptCard
         renderItem={({ item }) => (
-          // THE FIX: The onPress prop now correctly calls the handlePromptPress function
           <PromptCard prompt={item} onPress={() => handlePromptPress(item.id)} />
         )}
         onEndReached={() => loadPrompts()}
@@ -113,7 +114,7 @@ export default function CategoryScreen() {
         }
         ListEmptyComponent={
           <View style={styles.centered}>
-            <Text>{t('noResults')}</Text>
+            <Text style={{ color: '#fff' }}>{t('noResults')}</Text>
           </View>
         }
         contentContainerStyle={styles.list}
@@ -130,6 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
   },
   list: {
     paddingBottom: 20,
