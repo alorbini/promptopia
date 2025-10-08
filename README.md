@@ -5,10 +5,9 @@ It features a modern mobile UI, a powerful Filament admin panel, and a clean Lar
 
 ## 🖼️ Screenshots
 (You can add screenshots of your app here.)
-<!-- Example:
-![Home Screen](screenshots/home.png)
-![Prompt Modal](screenshots/modal.png)
--->
+
+[Home Screen](screenshots/Screenshot_2025.10.08_12.51.09.623.png)
+[Prompt Modal](screenshots/Screenshot_2025.10.08_12.51.32.639.pngg)
 
 ---
 
