@@ -19,6 +19,9 @@ const translations = {
     homeSubtitle: 'Explore prompts for your next creative photo.',
     searchPlaceholderCategories: 'Search categories...',
     allCategories: 'All Categories',
+    missingPromptTitle: 'Untitled prompt',
+    missingPromptSubtitle: 'No description available yet.',
+    missingPromptText: 'Prompt text is not available for this language.',
   },
 ar: {
     homeTitle: 'اكتشف الأوامر',
@@ -38,6 +41,9 @@ ar: {
     homeSubtitle: 'استلهم أفكارك وابدأ رحلتك لصورة مذهلة.',
     searchPlaceholderCategories: 'ابحث في الفئات...',
     allCategories: 'كل الفئات',
+    missingPromptTitle: 'أمر بدون عنوان',
+    missingPromptSubtitle: 'لا يوجد وصف متاح بعد.',
+    missingPromptText: 'نص الأمر غير متوفر لهذه اللغة.',
   },
 };
 
