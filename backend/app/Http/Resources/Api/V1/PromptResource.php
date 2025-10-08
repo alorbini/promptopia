@@ -9,8 +9,11 @@ class PromptResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        // The controller will have already loaded the appropriate translation
-        $translation = $this->translations->first();
+        $preferredLang = $request->input('lang', 'ar');
+
+        $translation = $this->translations->firstWhere('lang', $preferredLang)
+            ?? $this->translations->firstWhere('lang', 'en')
+            ?? $this->translations->first();
 
         return [
             'id' => $this->id,
@@ -21,7 +24,7 @@ class PromptResource extends JsonResource
                 'id' => $this->category->id,
                 'slug' => $this->category->slug,
             ],
-            // Only show a limited translation for list view
+            
             'translation' => [
                 'lang' => $translation?->lang,
                 'title' => $translation?->title,

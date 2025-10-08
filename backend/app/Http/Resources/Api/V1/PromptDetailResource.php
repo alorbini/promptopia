@@ -9,7 +9,11 @@ class PromptDetailResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $translation = $this->translations->first();
+        $preferredLang = $request->input('lang', 'ar');
+
+        $translation = $this->translations->firstWhere('lang', $preferredLang)
+            ?? $this->translations->firstWhere('lang', 'en')
+            ?? $this->translations->first();
 
         return [
             'id' => $this->id,
